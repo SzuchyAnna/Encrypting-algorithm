@@ -1,0 +1,25 @@
+1.
+
+Az alábbiakban egy rejtjelezési algoritmus leírása található:
+
+- az üzenet az angol abc szerinti kisbetűkből (a-z) és szóközből (' ') állhat
+
+- a kulcs ugyanezeket a karaktereket tartalmazhatja
+
+- a kulcsnak legalább akkorának kell lennie mint az üzenetnek
+
+- a rejtjelezés minden karakterre a következő műveletből  áll:
+- rendeljünk a karakterhez egy kódot: a = 0, b = 1, ... z = 25, ' ' (szóköz) = 26
+
+  - a rejtjelezett üzenet n. karaktere az üzenet n. karakter kódja + kulcs n. karakter kódja    
+
+  - ha az eredmény nagyobb mint 26, akkor az eredmény a 27-el való osztás maradéka
+
+- ha a kulcs hosszabb mint az üzenet, akkor a rejtjeles üzenet hossza az üzenet hossza lesz
+
+Pl.  
+üzenet: "helloworld"
+kulcs:  "abcdefgijkl"
+rejtjelezett üzenet: "hfnosauzun"
+
+Készíts függvényt, amely megvalósítja a fenti rejtjelezést (az üzenet és a kulcs megadásával), és egy másikat, amely megoldja azt!
