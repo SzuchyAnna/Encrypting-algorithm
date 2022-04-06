@@ -14,7 +14,7 @@ class Encrypter:
 
     def num_gen(self):
         encrypt_set = string.ascii_lowercase + ' '
-        return []
+        return [encrypt_set.index(i) for i in self.message]
 
     def encrypter(self):
         pass

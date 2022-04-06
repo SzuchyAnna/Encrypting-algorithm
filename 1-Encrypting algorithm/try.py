@@ -13,7 +13,7 @@ encrypt_set = string.ascii_lowercase + ' '
 # IGEN, A SZÓKÖZT IS BELERAKJA
 # print("'" + ''.join(choices(string.ascii_lowercase + ' ', k=n)) + "'")
 
-message = 'hello world'
+message = 'ahello world'
 # print([i for i in message])
 # print([i in encrypt_set for i in message])
 print([encrypt_set.index(i) for i in message])
