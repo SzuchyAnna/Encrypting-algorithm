@@ -15,7 +15,7 @@ class Encrypter:
         return ''.join(choices(self.char_set, k=n))
 
     def num_gen(self, text):
-        # encrypt_set = string.ascii_lowercase + ' '
+        # char_set = string.ascii_lowercase + ' '
         return [self.char_set.index(i) for i in text]
 
     def encrypter(self):
