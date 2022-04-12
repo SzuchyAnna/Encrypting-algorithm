@@ -5,10 +5,20 @@ def decoder(word, encrypted_message_1, encrypted_message_2):
     # char_set = string.ascii_lowercase + ' '
     # először a word az lesz, hogy early
     key = piece_teller(word, encrypted_message_1)  # ez most egy list
-    word_2 = piece_teller(key, encrypted_message_2)  # ez most egy list
-    message_2 = ''.join(word_2)  # ez most viszont string
-    word_list = word_guesser(message_2)  # megkapjuk az első szavát az üzenetnek
-    
+    piece = piece_teller(key, encrypted_message_2)  # ez most egy list
+    # ez az első szótöredékünk
+    # a piece egy újraírandó lista, ami mindig ahhoz tartalmaz üzenetrészt, hogy kitaláljuk a key következő részét
+    word_list = word_guesser(piece)  # megkapjuk az első potenciális szavait a 2. üzenetnek
+
+
+def nemtom(word_list, piece, encrypted_message_1, encrypted_message_2):
+    for x in word_list:
+        piece = x.replace(''.join(piece), '') + ' '
+        key_piece = piece_teller(piece, encrypted_message_1)
+        piece = piece_teller(key_piece, encrypted_message_2)
+        inner_word_list = word_guesser(piece)
+        # ha vége az üzeneteknek, akkor lépjünk ki
+        # adjuk vissza a kulcsot is 
 
 
 def piece_teller(word, encrypted_message):
