@@ -8,6 +8,7 @@ def decoder(word, encrypted_message_1, encrypted_message_2):
     word_2 = piece_teller(key, encrypted_message_2)  # ez most egy list
     message_2 = ''.join(word_2)  # ez most viszont string
     word_list = word_guesser(message_2)  # megkapjuk az első szavát az üzenetnek
+    
 
 
 def piece_teller(word, encrypted_message):
