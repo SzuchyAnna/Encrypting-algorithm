@@ -15,7 +15,6 @@ class Encrypter:
         return ''.join(choices(self.char_set, k=n))
 
     def num_gen(self, text):
-        # char_set = string.ascii_lowercase + ' '
         return [self.char_set.index(i) for i in text]
 
     def encrypter(self):
@@ -28,8 +27,3 @@ class Encrypter:
         key_num = self.num_gen(key)
         message_num = [(encrypted_message_num[i] - key_num[i]) % 27 for i in range(len(encrypted_message_num))]
         return ''.join([self.char_set[i] for i in message_num])
-
-    def input_tester(self):
-        # a-z + szóköz
-        # String
-        pass
