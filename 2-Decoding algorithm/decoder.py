@@ -12,9 +12,10 @@ def decoder(word, encrypted_message_1, encrypted_message_2):
     # a piece egy újraírandó lista, ami mindig ahhoz tartalmaz üzenetrészt, hogy kitaláljuk a key következő részét
     word_list = word_guesser(piece)  # megkapjuk az első potenciális szavait a 2. üzenetnek
     message_2 = ''.join(piece)
+    decoding_cycle(word_list, piece, message_1, message_2, encrypted_message_1, encrypted_message_2)
 
 
-def nemtom(word_list, piece, message_1, message_2, encrypted_message_1, encrypted_message_2):
+def decoding_cycle(word_list, piece, message_1, message_2, encrypted_message_1, encrypted_message_2):
     for x in word_list:
         inner_message_2 = message_2 + x.replace(''.join(piece), '') + ' '
         inner_key = piece_teller(inner_message_2, encrypted_message_2)
@@ -25,9 +26,8 @@ def nemtom(word_list, piece, message_1, message_2, encrypted_message_1, encrypte
         if len(inner_key == encrypted_message_2):
             return inner_key, inner_message_1, inner_message_2
         else:
-            nemtom(inner_word_list, inner_piece, inner_message_2, inner_message_2, encrypted_message_1, encrypted_message_2)
+            decoding_cycle(inner_word_list, inner_piece, inner_message_2, inner_message_2, encrypted_message_1, encrypted_message_2)
 
-        # adjuk vissza a kulcsot is
         # hogy adjak vissza több kulcsot?
 
 
