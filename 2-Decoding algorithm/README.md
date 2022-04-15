@@ -63,8 +63,8 @@ criteria.
 piece_teller(m_k, encrypted_message)
 
 piece_teller receives a message or a key part (therefore m_k) and an encrypted message (encrypted_message) and calculates the key or the message part
-belonging to the given message or key part based on the encrypted message and the general encrypting method used and described in the first excercise 
-(Encrypting algorithm) using num_gen (see below). It returns a list with characters in it.
+belonging to the given message or key part based on the encrypted message and the general encrypting method used and described in num_gen (see below). 
+It returns a list with characters in it.
 
 
 
