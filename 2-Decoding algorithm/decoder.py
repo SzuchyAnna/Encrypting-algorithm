@@ -1,56 +1,45 @@
 import string
 
 
-def decoder(word, encrypted_message_1, encrypted_message_2):
-    # char_set = string.ascii_lowercase + ' '
-    # először a word az lesz, hogy early
+def decoder(word, encrypted_message_word_s, encrypted_message_other):
     message_1 = word + ' '
-    key = piece_teller(message_1, encrypted_message_1)  # ez most egy list
-    piece = piece_teller(key, encrypted_message_2)  # ez most egy list
-    # ez az első szótöredékünk
-    # jelen pillanatban a 2. üzenet darabkája
-    # a piece egy újraírandó lista, ami mindig ahhoz tartalmaz üzenetrészt, hogy kitaláljuk a key következő részét
-    word_list = word_guesser(piece)  # megkapjuk az első potenciális szavait a 2. üzenetnek
+    key = piece_teller(message_1, encrypted_message_word_s)
+    piece = piece_teller(key, encrypted_message_other)
+    word_list = word_guesser(piece)
     message_2 = ''.join(piece)
-    decoding_cycle(word_list, piece, message_1, message_2, encrypted_message_1, encrypted_message_2)
+    print(decoding_cycle(piece, word_list, message_2, encrypted_message_word_s, encrypted_message_other))
 
 
-def decoding_cycle(word_list, piece, message_1, message_2, encrypted_message_1, encrypted_message_2):
+def decoding_cycle(piece, word_list, message_lesser_known, encrypted_message_more, encrypted_message_less):
     for x in word_list:
-        inner_message_2 = message_2 + x.replace(''.join(piece), '') + ' '
-        inner_key = piece_teller(inner_message_2, encrypted_message_2)
-        inner_message_1 = piece_teller(inner_key, encrypted_message_1)
-        # ha lehet, ezt írd már át arra, hogy legyen egyenlő az utolsó szóköz utáni résszel
-        inner_piece = [i for i in inner_message_1 not in message_1]
+        inner_message_2 = message_lesser_known + x.replace(''.join(piece), '') + ' '
+        inner_key = piece_teller(inner_message_2, encrypted_message_less)
+        inner_message_1 = ''.join(piece_teller(inner_key, encrypted_message_more))
+        inner_piece = [i for i in inner_message_1.split(' ')[-1]]
         inner_word_list = word_guesser(inner_piece)
-        if len(inner_key == encrypted_message_2):
-            return inner_key, inner_message_1, inner_message_2
+        if len(inner_key) == len(encrypted_message_less):
+            return inner_key, inner_message_1, inner_message_2.strip()
         else:
-            decoding_cycle(inner_word_list, inner_piece, inner_message_2, inner_message_2, encrypted_message_1, encrypted_message_2)
-
-        # hogy adjak vissza több kulcsot?
+            decoding_cycle(inner_piece, inner_word_list, inner_message_1, encrypted_message_less, encrypted_message_more)
 
 
-def piece_teller(message, encrypted_message):
-    char_set = string.ascii_lowercase + ' '
-    encrypted_message_num = num_gen(encrypted_message) # visszaadja az encrypted message betűit számokban
-    message_num = num_gen(message) # visszaadja a word betűit számokban
-    new_message_num = [(encrypted_message_num[i] - message_num[i]) % 27 for i in range(len(message_num))]
-    return [char_set[i] for i in new_message_num]
-
-
-def word_guesser (word):
+def word_guesser(word_piece):
     vocabulary = open('words.txt', 'r')
     wordlist = []
     for i in vocabulary:
-        if i.startswith(word):
+        if i.startswith(word_piece):
             wordlist.append(i.strip())
     return wordlist
+
+
+def piece_teller(m_k, encrypted_message):
+    char_set = string.ascii_lowercase + ' '
+    encrypted_message_num = num_gen(encrypted_message)
+    message_num = num_gen(m_k)
+    new_message_num = [(encrypted_message_num[i] - message_num[i]) % 27 for i in range(len(message_num))]
+    return [char_set[i] for i in new_message_num]
 
 
 def num_gen(text):
     char_set = string.ascii_lowercase + ' '
     return [char_set.index(i) for i in text]
-
-
-
