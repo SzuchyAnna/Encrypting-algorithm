@@ -20,7 +20,8 @@ class Encrypter:
     def encrypter(self):
         message_num = self.num_gen(self.message)
         key_num = self.num_gen(self.key)
-        return [(message_num[i] + key_num[i]) % 27 for i in range(len(message_num))]
+        encrypted_message_num = [(message_num[i] + key_num[i]) % 27 for i in range(len(message_num))]
+        return ''.join([self.char_set[i] for i in encrypted_message_num])
 
     def decrypter(self, encrypted_message, key):
         encrypted_message_num = self.num_gen(encrypted_message)
