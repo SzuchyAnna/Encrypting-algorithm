@@ -20,7 +20,10 @@ def decoding_cycle(piece, word_list, message_lesser_known, encrypted_message_mor
         if len(inner_key) == len(encrypted_message_less):
             return inner_key, inner_message_1, inner_message_2.strip()
         else:
-            decoding_cycle(inner_piece, inner_word_list, inner_message_1, encrypted_message_less, encrypted_message_more)
+            if not inner_word_list:
+                pass
+            else:
+                decoding_cycle(inner_piece, inner_word_list, inner_message_1, encrypted_message_less, encrypted_message_more)
 
 
 def word_guesser(word_piece):
