@@ -15,7 +15,7 @@ def decoding_cycle(piece, word_list, message_lesser_known, encrypted_message_mor
         inner_message_2 = message_lesser_known + x.replace(''.join(piece), '') + ' '
         inner_key = piece_teller(inner_message_2, encrypted_message_less)
         inner_message_1 = ''.join(piece_teller(inner_key, encrypted_message_more))
-        inner_piece = [i for i in inner_message_1.split(' ')[-1]]
+        inner_piece = ''.join([i for i in inner_message_1.split(' ')[-1]])
         inner_word_list = word_guesser(inner_piece)
         if len(inner_key) == len(encrypted_message_less):
             return inner_key, inner_message_1, inner_message_2.strip()
